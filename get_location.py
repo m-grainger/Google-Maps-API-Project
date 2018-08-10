@@ -1,7 +1,9 @@
+import pprint
 import json
 import urllib.request
 
-user_key = "<insert your google maps api key here!>"
+user_key = "<my api key>"
+
 	
 user_address = input("Please type in your location: ")
 
@@ -24,4 +26,5 @@ print(request)
 response = urllib.request.urlopen(request).read()
 location = json.loads(response)
 
-print(location)
+latlong_comp = [s['geometry']['location'] for s in location['results']]
+print(latlong_comp)
