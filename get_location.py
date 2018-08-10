@@ -2,10 +2,9 @@ import pprint
 import json
 import urllib.request
 
-user_key = "<my api key>"
+user_key = "<user api key>"
 
-	
-user_address = input("Please type in your location: ")
+	user_address = input("Please type in your location: ")
 
 def generate_url(address,api_key):
 	address = address.replace(" ","+")
@@ -26,5 +25,16 @@ print(request)
 response = urllib.request.urlopen(request).read()
 location = json.loads(response)
 
-latlong_comp = [s['geometry']['location'] for s in location['results']]
-print(latlong_comp)
+#pprint.pprint(location['results']['geometry']['location'])
+
+# re-enable after testing?
+# latlong_comp = [s['geometry']['location'] for s in location['results']]
+
+# convert to str and sclice out brackets (is this even needed?)
+g_user_lat = str([s['geometry']['location']['lat'] for s in location['results']])[1:-1]
+g_user_lng = str([s['geometry']['location']['lng'] for s in location['results']])[1:-1]
+
+# convert to float
+g_user_lat_float = float(g_user_lat)
+g_user_lng_float = float(g_user_lng)
+print(f" latitude for {user_address} is {g_user_lat_float} and logitude is {g_user_lng_float}")
