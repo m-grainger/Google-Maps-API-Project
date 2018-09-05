@@ -2,9 +2,9 @@
 An application that has you choose your location, and various statistics are pulled up that correlate with your chosen location
 
 TO-DO:
-- ~~pull lat and long based off of location
-- ~~access other apis to generate values based off of lat and long
-- ~~use lat and long from google to query yelp
+- ~~pull lat and long based off of location~~
+- ~~access other apis to generate values based off of lat and long~~
+- ~~use lat and long from google to query yelp~~
 - return MEANINGFUL results
 - allow the user to select what they are looking for (bar, restaurant, food cart, etc)
 
