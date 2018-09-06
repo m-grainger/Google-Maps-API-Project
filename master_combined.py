@@ -5,12 +5,9 @@ import urllib.request
 
 from time import sleep
 
-pp = pprint.PrettyPrinter(depth=6)
+pp = pprint.PrettyPrinter(depth=50)
 
-# api credentials
-g_api_key = "<google maps api key>"
-y_api_key = '<yelp api key>'
-
+g_api_key = "<google api key>"
 user_address = input("Please type in your location: ")
 
 def generate_url(address,api_key):
@@ -40,23 +37,28 @@ print()
 g_user_lng = float(g_user_lng)
 lng = g_user_lng
 
-print(f" latitude for {user_address} is {lat} and logitude is {lng}")
+print(f"latitude for {user_address} is {lat} and logitude is {lng}")
 
-print("waiting...")
-sleep(5)
+print("\nwaiting...\n")
+sleep(3)
 
+search_q = input("Please choose a category to search for: ")
 
+y_api_key = '<yahoo api key>'
 url = 'https://api.yelp.com/v3/businesses/search'
 headers = {'Authorization': f'Bearer {y_api_key}'}
 url_params ={'latitude': lat, 'longitude':
-            lng, 'radius': 500, 'categories': ('bars, ALL'),
+            lng, 'radius': 2500, 'categories': (f'{search_q}, ALL'),
             'sort_by':'distance'}
 
 def func_req(url,url_params, headers):
     response = requests.request('GET', url, headers=headers, params=url_params)
-    fin_response = response.json()
-    pp.pprint(fin_response)
+    businesses = response.json()['businesses']
+    alias = [business["alias"] for business in businesses]
+
+    print("\nThese 5 places are CLOSE!\n")
+    for x in alias[:5]: print(x.replace("-"," "))
 
 func_req(url,url_params,headers)
 
-input('Press ENTER to exit')
+input('\nPress ENTER to exit')
