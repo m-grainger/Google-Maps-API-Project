@@ -6,6 +6,8 @@ TO-DO:
 - ~~access other apis to generate values based off of lat and long~~
 - ~~use lat and long from google to query yelp~~
 - return MEANINGFUL results
+
+Partially Complete / Needs Love
 - allow the user to select what they are looking for (bar, restaurant, food cart, etc)
 
 
