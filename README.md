@@ -19,6 +19,7 @@ TO-DO:
 - ~~access other apis to generate values based off of lat and long~~
 - ~~use lat and long from google to query yelp~~
 - return MEANINGFUL results
+- test google places api to see if it can potentially replace using google maps + yelp
 
 Partially Complete / Needs Love
 - allow the user to select what they are looking for (bar, restaurant, food cart, etc)
