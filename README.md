@@ -1,7 +1,18 @@
 # Google-Maps-API-Project
 An application that has you choose your location, and various statistics are pulled up that correlate with your chosen location.
 
+Here is how it should work:
+
+The program asks the user to input their location.  A specific address, or a generic city name should work.
+The prgram asks the user what they want to look for.
+
+Say you gave the address for Pioneer Square in Portland, OR, and type "bar" for the type of business you want to find.  The application will spit out the 5 closest business that match that business type to the provided address.
+
+I really want this application to have more functionality in the future, but for right now, I want to get the basics ironed out.
+
 Written using Python 3.7.  This code uses "f strings", which are not currently compatble with Python 2.7 at the time of writing this comment.  F strings are compatible with Python 3.6 and up.
+
+The file that needs love right now is master_combined.py
 
 TO-DO:
 - ~~pull lat and long based off of location~~
