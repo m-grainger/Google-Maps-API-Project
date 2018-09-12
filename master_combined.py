@@ -1,8 +1,4 @@
 import pprint
-''' 
-Not currently using pprint's functionality, but it comes in handy for testing queries, and may be
-implemented in the final build 
-'''
 import json
 import requests
 import urllib.request
@@ -11,16 +7,14 @@ from time import sleep
 
 pp = pprint.PrettyPrinter(depth=50)
 
-# api keys are obfuscated, just throw your own keys in to get query functionality.
-g_api_key = "<google api key>"
-y_api_key = '<yahoo api key>'
-
+g_api_key = "AIzaSyBOR6qQnsDUFiAABklYCRPzMH--9rcjmDk"
 user_address = input("Please type in your location: ")
 
 def generate_url(address,api_key):
 	address = address.replace(" ","+")
 	address = address.replace(",","")
 	return address 
+#string out all non-word characters
 
 result = generate_url(user_address,g_api_key)
 
@@ -30,9 +24,8 @@ request = f"{endpoint}{result}&key={g_api_key}"
 g_response = urllib.request.urlopen(request).read()
 location = json.loads(g_response)
 
-
+# fix this... encountering bugs with converting to float, and it looks sloppy.
 # sometimes it doesn't want to convert to floats. adding a print statement magically makes this work.
-# re-factor this below code at some point
 
 g_user_lat = str([s['geometry']['location']['lat'] for s in location['results']]).replace('[','').replace(']','')
 print()
@@ -46,12 +39,12 @@ lng = g_user_lng
 
 print(f"latitude for {user_address} is {lat} and logitude is {lng}")
 
-print("\nwaiting...\n")
-sleep(3)
+print("\nsearching...\n")
+sleep(1)
 
 search_q = input("Please choose a category to search for: ")
 
-
+y_api_key = 'EwZ8_qcJki6RRsz5AMCovECnRkdG56f3DK9kBXp1dTAAQqcKtF6G6gv_HCqRk7SxciGTcc0MkSFa4fqsZl_QlfSsKmRiU89AAPDVJEkgHcyNJBm0HM2Ql-gz9bB9W3Yx'
 url = 'https://api.yelp.com/v3/businesses/search'
 headers = {'Authorization': f'Bearer {y_api_key}'}
 url_params ={'latitude': lat, 'longitude':
@@ -61,10 +54,31 @@ url_params ={'latitude': lat, 'longitude':
 def func_req(url,url_params, headers):
     response = requests.request('GET', url, headers=headers, params=url_params)
     businesses = response.json()['businesses']
+    ratings = response.json()['businesses']
     alias = [business["alias"] for business in businesses]
+    rating = [reviews['rating'] for reviews in ratings]
 
     print("\nThese 5 places are CLOSE!\n")
-    for x in alias[:5]: print(x.replace("-"," "))
+    
+    # should populate with business names
+    business_list = []
+
+    # should populate with coresponding ratings
+    ratings_list = []
+
+    for x in alias[:5]: business_list.append(x)
+    for y in rating[:5]: ratings_list.append(y)
+
+    # for x in alias[:5]: print(x.replace("-"," "))
+    # for y in rating[:5]: print(y)
+
+    # for x['name'] in fin_response:
+    # 	print(x)
+
+    # delete the above once it prints in a prettier fashion...
+    
+    final_list = zip(business_list,ratings_list)
+    for z in final_list: print(z)
 
 func_req(url,url_params,headers)
 
