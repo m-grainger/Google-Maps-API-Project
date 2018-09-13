@@ -7,7 +7,7 @@ from time import sleep
 
 pp = pprint.PrettyPrinter(depth=50)
 
-g_api_key = "<insert google api key here>"
+g_api_key = "<insert google API here>"
 user_address = input("Please type in your location: ")
 
 def generate_url(address,api_key):
@@ -26,6 +26,7 @@ location = json.loads(g_response)
 
 # fix this... encountering bugs with converting to float, and it looks sloppy.
 # sometimes it doesn't want to convert to floats. adding a print statement magically makes this work.
+# UPDATE - it may not be grabbing lat and long due to a bad address.
 
 g_user_lat = str([s['geometry']['location']['lat'] for s in location['results']]).replace('[','').replace(']','')
 print()
@@ -44,8 +45,7 @@ sleep(1)
 
 search_q = input("Please choose a category to search for: ")
 
-y_api_key = '<insert yelp api key here!>'
-
+y_api_key = '<yelp API key>'
 url = 'https://api.yelp.com/v3/businesses/search'
 headers = {'Authorization': f'Bearer {y_api_key}'}
 url_params ={'latitude': lat, 'longitude':
@@ -67,20 +67,13 @@ def func_req(url,url_params, headers):
     # should populate with coresponding ratings
     ratings_list = []
 
-    for x in alias[:5]: business_list.append(x)
+    b_name = [x.replace("-"," ") for x in alias[:5]]
+    for z in b_name: business_list.append(z)
     for y in rating[:5]: ratings_list.append(y)
 
-    # for x in alias[:5]: print(x.replace("-"," "))
-    # for y in rating[:5]: print(y)
-
-    # for x['name'] in fin_response:
-    # 	print(x)
-
-    # delete the above once it prints in a prettier fashion...
-    
     final_list = zip(business_list,ratings_list)
     for z in final_list: print(z)
-
+    
 func_req(url,url_params,headers)
 
 input('\nPress ENTER to exit')
