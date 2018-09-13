@@ -7,7 +7,7 @@ from time import sleep
 
 pp = pprint.PrettyPrinter(depth=50)
 
-g_api_key = "<insert google API here>"
+g_api_key = "google api key"
 user_address = input("Please type in your location: ")
 
 def generate_url(address,api_key):
@@ -45,7 +45,10 @@ sleep(1)
 
 search_q = input("Please choose a category to search for: ")
 
-y_api_key = '<yelp API key>'
+if search_q == "bar":
+    search_q = "bars"
+
+y_api_key = 'yelp api key'
 url = 'https://api.yelp.com/v3/businesses/search'
 headers = {'Authorization': f'Bearer {y_api_key}'}
 url_params ={'latitude': lat, 'longitude':
